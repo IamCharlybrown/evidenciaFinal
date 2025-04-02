@@ -9,16 +9,19 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
-        //
+        Schema::create('orders', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->enum('status', ['pendiente', 'pagada', 'cancelada', 'entregada'])->default('pendiente');
+            $table->decimal('total', 10, 2)->default(0);
+            $table->timestamps();
+        });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
-        //
+        Schema::dropIfExists('orders');
     }
 };
