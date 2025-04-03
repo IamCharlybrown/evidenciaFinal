@@ -28,14 +28,16 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
-            'quantity' => 'required|integer|min:0',
+            'stock' => 'required|integer|min:0',
+            'description' => 'nullable|string|max:1000',
         ]);
 
         // Crear el producto
         $product = Product::create([
             'name' => $request->name,
             'price' => $request->price,
-            'quantity' => $request->quantity,
+            'stock' => $request->stock,
+            'description'=> $request->description,
         ]);
 
         // Redirigir con un mensaje de éxito
@@ -55,14 +57,17 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
-            'quantity' => 'required|integer|min:0',
+            'stock' => 'required|integer|min:0',
+            'description' => 'nullable|string|max:1000',
         ]);
 
         // Actualizar el producto
         $product->update([
             'name' => $request->name,
-            'price' => $request->price,
-            'quantity' => $request->quantity,
+            'price' => (float) $request->price,
+            'stock' => $request->stock,
+            'description' => $request->description,
+
         ]);
 
         // Redirigir con un mensaje de éxito
