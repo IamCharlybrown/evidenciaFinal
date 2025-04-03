@@ -25,6 +25,30 @@
             </dl>
         </div>
 
+        <div class="mt-6 bg-white shadow sm:rounded-lg p-6">
+            <h2 class="text-xl font-semibold text-gray-800 dark:text-white">Productos de la Orden</h2>
+            <table class="min-w-full mt-4 table-auto">
+                <thead>
+                    <tr class="border-b">
+                        <th class="px-4 py-2 text-left text-sm font-medium text-gray-500">Producto</th>
+                        <th class="px-4 py-2 text-left text-sm font-medium text-gray-500">Cantidad</th>
+                        <th class="px-4 py-2 text-left text-sm font-medium text-gray-500">Precio Unitario</th>
+                        <th class="px-4 py-2 text-left text-sm font-medium text-gray-500">Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($order->orderItems as $item)
+                        <tr class="border-b">
+                            <td class="px-4 py-2 text-sm text-gray-900">{{ $item->product->name }}</td>
+                            <td class="px-4 py-2 text-sm text-gray-900">{{ $item->quantity }}</td>
+                            <td class="px-4 py-2 text-sm text-gray-900">${{ number_format($item->price_unit, 2) }}</td>
+                            <td class="px-4 py-2 text-sm text-gray-900">${{ number_format($item->subtotal, 2) }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+
         <div class="mt-6">
             <a href="{{ route('orders.index') }}"
                 class="px-4 py-2 rounded-md text-white"

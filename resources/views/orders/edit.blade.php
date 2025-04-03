@@ -19,10 +19,15 @@
                         <option value="entregada" {{ $order->status == 'entregada' ? 'selected' : '' }}>Entregada</option>
                     </select>
                 </div>
+              
+                <div>
+                    <label for="total" class="block text-sm font-medium text-gray-700">Total</label>
+                    <input type="number" name="total" id="total" value="{{ old('total', $order->total) }}"
+                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                        required>
 
                 <div class="mt-4">
-                    <button type="submit"
-                        class="w-full py-2 px-4 text-white font-semibold rounded-md"
+                    <button type="submit" class="w-full py-2 px-4 text-white font-semibold rounded-md"
                         style="background-color: #22c55e; transition: background-color 0.3s;">
                         Actualizar Orden
                     </button>
@@ -31,8 +36,7 @@
         </div>
 
         <div class="mt-6">
-            <a href="{{ route('orders.index') }}"
-                class="px-4 py-2 rounded-md text-white"
+            <a href="{{ route('orders.index') }}" class="px-4 py-2 rounded-md text-white"
                 style="background-color: #2563eb; hover:background-color: #1d4ed8;">
                 Volver
             </a>

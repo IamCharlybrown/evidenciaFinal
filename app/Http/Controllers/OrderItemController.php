@@ -10,11 +10,6 @@ class OrderItemController extends Controller
 {
     public function index(Order $order)
     {
-        // Verificamos que el usuario sea el dueño de la orden o admin
-        if (!auth()->user()->isAdmin() && $order->user_id !== auth()->id()) {
-            abort(403);
-        }
-
         // Obtenemos todos los items de la orden
         $orderItems = $order->orderItems;
         return view('order_items.index', compact('order', 'orderItems'));
@@ -22,11 +17,6 @@ class OrderItemController extends Controller
 
     public function create(Order $order)
     {
-        // Verificamos que el usuario sea el dueño de la orden o admin
-        if (!auth()->user()->isAdmin() && $order->user_id !== auth()->id()) {
-            abort(403);
-        }
-
         return view('order_items.create', compact('order'));
     }
 
@@ -53,21 +43,11 @@ class OrderItemController extends Controller
 
     public function show(Order $order, OrderItem $orderItem)
     {
-        // Verificamos que el usuario sea el dueño de la orden o admin
-        if (!auth()->user()->isAdmin() && $order->user_id !== auth()->id()) {
-            abort(403);
-        }
-
         return view('order_items.show', compact('order', 'orderItem'));
     }
 
     public function edit(Order $order, OrderItem $orderItem)
     {
-        // Verificamos que el usuario sea el dueño de la orden o admin
-        if (!auth()->user()->isAdmin() && $order->user_id !== auth()->id()) {
-            abort(403);
-        }
-
         return view('order_items.edit', compact('order', 'orderItem'));
     }
 
@@ -94,11 +74,6 @@ class OrderItemController extends Controller
 
     public function destroy(Order $order, OrderItem $orderItem)
     {
-        // Verificamos que el usuario sea el dueño de la orden o admin
-        if (!auth()->user()->isAdmin() && $order->user_id !== auth()->id()) {
-            abort(403);
-        }
-
         // Eliminamos el item de la orden
         $orderItem->delete();
 
