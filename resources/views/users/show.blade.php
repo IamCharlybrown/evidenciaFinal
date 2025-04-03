@@ -24,5 +24,11 @@
                 </div>
             </div>
         </div>
+        <div class="mt-6">
+            <a href="{{ route('users.index') }}" class="w-full py-2 px-4"
+                style="background-color: #3182ce; color: white; font-weight: 600; border-radius: 0.375rem; transition: background-color 0.3s;">
+                Regresar a la Lista de Usuarios
+            </a>
+        </div>
     </div>
 @endsection
