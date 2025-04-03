@@ -1,45 +1,67 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <h1 class="mb-4">Órdenes</h1>
-    <a href="{{ route('orders.create') }}" class="btn btn-primary mb-3">Nueva Orden</a>
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <h1 class="text-2xl font-semibold text-gray-800 dark:text-white">Lista de Órdenes</h1>
 
-    @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
+        <div class="my-8 flex justify-end">
+            <a href="{{ route('orders.create') }}" class="px-4 py-2 rounded-md text-white"
+                style="background-color: #2563eb; hover:background-color: #1d4ed8;">
+                <i class="fas fa-plus"></i> Nueva Orden
+            </a>
+        </div>
 
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Usuario</th>
-                <th>Estado</th>
-                <th>Total</th>
-                <th>Fecha</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($orders as $order)
-                <tr>
-                    <td>{{ $order->id }}</td>
-                    <td>{{ $order->user->name }}</td>
-                    <td>{{ $order->status }}</td>
-                    <td>${{ number_format($order->total, 2) }}</td>
-                    <td>{{ $order->created_at->format('d/m/Y') }}</td>
-                    <td>
-                        <a href="{{ route('orders.show', $order) }}" class="btn btn-info btn-sm">Ver</a>
-                        <a href="{{ route('orders.edit', $order) }}" class="btn btn-warning btn-sm">Editar</a>
-                        <form action="{{ route('orders.destroy', $order) }}" method="POST" style="display:inline;">
-                            @csrf @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Eliminar esta orden?')">Eliminar</button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-</div>
+        <div class="overflow-hidden bg-white shadow sm:rounded-lg">
+            <table class="min-w-full table-auto">
+                <thead class="bg-gray-100">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Usuario</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Estado</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fecha</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white">
+                    @foreach($orders as $order)
+                        <tr class="border-t">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $order->id }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $order->user->name ?? 'Sin usuario' }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                                    {{ $order->status == 'pendiente' ? 'bg-yellow-200 text-yellow-800' : 'bg-green-200 text-green-800' }}">
+                                    {{ ucfirst($order->status) }}
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${{ number_format($order->total, 2) }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $order->created_at->format('d/m/Y') }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-right">
+                                <a href="{{ route('orders.show', $order) }}" class="text-green-600 hover:text-green-900" title="Ver">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-right">
+                                <a href="{{ route('orders.edit', $order) }}" class="text-blue-600 hover:text-blue-900 ml-4" title="Editar">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-right">
+                                <form action="{{ route('orders.destroy', $order) }}" method="POST" class="inline-block">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="text-red-600 hover:text-red-900 ml-4" title="Eliminar" 
+                                        onclick="return confirm('¿Eliminar esta orden?')">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
 @endsection
-
