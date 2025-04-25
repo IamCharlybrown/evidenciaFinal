@@ -16,6 +16,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->enum('status', ['pendiente', 'pagada', 'cancelada', 'entregada'])->default('pendiente');
             $table->decimal('total', 10, 2)->default(0);
+            $table->string('initial_image')->nullable();
+            $table->string('delivery_image')->nullable();
             $table->timestamps();
         });
     }

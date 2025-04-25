@@ -19,6 +19,8 @@
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Usuario</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Estado</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Imagen Inicial</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Imagen Entrega</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fecha</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
@@ -32,11 +34,27 @@
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $order->user->name ?? 'Sin usuario' }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm">
                                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
-                                    {{ $order->status == 'pendiente' ? 'bg-yellow-200 text-yellow-800' : 'bg-green-200 text-green-800' }}">
+                                    {{ $order->status == 'pendiente' ? 'bg-yellow-200 text-yellow-800' : 
+                                       ($order->status == 'pagada' ? 'bg-green-200 text-green-800' : 
+                                       ($order->status == 'cancelada' ? 'bg-red-200 text-red-800' : 'bg-blue-200 text-blue-800')) }}">
                                     {{ ucfirst($order->status) }}
                                 </span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${{ number_format($order->total, 2) }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                @if($order->initial_image)
+                                    <img src="{{ Storage::url($order->initial_image) }}" alt="Imagen inicial" class="h-12 w-auto object-cover rounded">
+                                @else
+                                    <span class="text-gray-400">Sin imagen</span>
+                                @endif
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                @if($order->delivery_image)
+                                    <img src="{{ Storage::url($order->delivery_image) }}" alt="Imagen de entrega" class="h-12 w-auto object-cover rounded">
+                                @else
+                                    <span class="text-gray-400">Sin imagen</span>
+                                @endif
+                            </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $order->created_at->format('d/m/Y') }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-right">
                                 <a href="{{ route('orders.show', $order) }}" class="text-green-600 hover:text-green-900" title="Ver">

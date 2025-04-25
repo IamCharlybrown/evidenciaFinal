@@ -4,7 +4,7 @@
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <h1 class="text-2xl font-semibold text-gray-800 dark:text-white">Crear Nueva Orden</h1>
 
-        <form action="{{ route('orders.store') }}" method="POST" class="mt-6 space-y-4">
+        <form action="{{ route('orders.store') }}" method="POST" class="mt-6 space-y-4" enctype="multipart/form-data">
             @csrf
 
             <div class="flex flex-col space-y-4">
@@ -34,9 +34,16 @@
 
                 <div>
                     <label for="total" class="block text-sm font-medium text-gray-700">Total</label>
-                    <input type="number" name="total" id="total"
+                    <input type="number" name="total" id="total" step="0.01"
                         class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                         required>
+                </div>
+
+                <div>
+                    <label for="initial_image" class="block text-sm font-medium text-gray-700">Imagen Inicial</label>
+                    <input type="file" name="initial_image" id="initial_image" accept="image/*"
+                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                    <p class="text-xs text-gray-500 mt-1">Opcional: Imagen de la orden al inicio</p>
                 </div>
             </div>
 
