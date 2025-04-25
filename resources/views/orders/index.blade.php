@@ -43,14 +43,22 @@
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${{ number_format($order->total, 2) }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                 @if($order->initial_image)
-                                    <img src="{{ Storage::url($order->initial_image) }}" alt="Imagen inicial" class="h-12 w-auto object-cover rounded">
+                                    <a href="{{ Storage::url($order->initial_image) }}" 
+                                       class="text-blue-600 hover:text-blue-800 underline" 
+                                       download="{{ basename($order->initial_image) }}">
+                                        {{ basename($order->initial_image) }}
+                                    </a>
                                 @else
                                     <span class="text-gray-400">Sin imagen</span>
                                 @endif
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                 @if($order->delivery_image)
-                                    <img src="{{ Storage::url($order->delivery_image) }}" alt="Imagen de entrega" class="h-12 w-auto object-cover rounded">
+                                    <a href="{{ Storage::url($order->delivery_image) }}" 
+                                       class="text-blue-600 hover:text-blue-800 underline" 
+                                       download="{{ basename($order->delivery_image) }}">
+                                        {{ basename($order->delivery_image) }}
+                                    </a>
                                 @else
                                     <span class="text-gray-400">Sin imagen</span>
                                 @endif
