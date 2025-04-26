@@ -72,7 +72,6 @@ class OrderController extends Controller
     {
         // Validación de los datos
         $request->validate([
-            'user_id' => 'required|exists:users,id',
             'status' => 'required|in:pendiente,pagada,cancelada,entregada',
             'total' => 'required|numeric|min:0',
             'initial_image' => 'nullable|image|max:2048',
@@ -81,7 +80,6 @@ class OrderController extends Controller
 
         // Datos para actualizar
         $data = [
-            'user_id' => $request->user_id,
             'status' => $request->status,
             'total' => $request->total,
         ];
@@ -92,7 +90,7 @@ class OrderController extends Controller
             if ($order->initial_image) {
                 Storage::disk('public')->delete($order->initial_image);
             }
-            
+
             $data['initial_image'] = $request->file('initial_image')->store('orders', 'public');
         }
 
@@ -102,7 +100,7 @@ class OrderController extends Controller
             if ($order->delivery_image) {
                 Storage::disk('public')->delete($order->delivery_image);
             }
-            
+
             $data['delivery_image'] = $request->file('delivery_image')->store('orders', 'public');
         }
 
@@ -119,7 +117,7 @@ class OrderController extends Controller
         if ($order->initial_image) {
             Storage::disk('public')->delete($order->initial_image);
         }
-        
+
         if ($order->delivery_image) {
             Storage::disk('public')->delete($order->delivery_image);
         }
