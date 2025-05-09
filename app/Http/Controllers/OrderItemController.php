@@ -17,7 +17,8 @@ class OrderItemController extends Controller
 
     public function create(Order $order)
     {
-        return view('order_items.create', compact('order'));
+        $orders = Order::all();
+        return view('order_items.create', compact('orders'));
     }
 
     public function store(Request $request, Order $order)

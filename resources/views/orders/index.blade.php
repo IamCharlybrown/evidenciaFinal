@@ -11,7 +11,7 @@
             </a>
         </div>
 
-        <div class="overflow-hidden bg-white shadow sm:rounded-lg">
+        <div class="overflow-scroll bg-white shadow sm:rounded-lg">
             <table class="min-w-full table-auto">
                 <thead class="bg-gray-100">
                     <tr>
